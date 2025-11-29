@@ -19,6 +19,7 @@ public class TripPlanService {
     private final TripPlanMapper tripPlanMapper;
     private final GeoDetailsService geoDetailsService;
     private final UserService userService;
+    private final ExternalDataService externalDataService;
 
     @Transactional
     public TripPlanResponseDto createTripPlan(Long userId, TripPlanRequestDto tripPlanRequestDto) {
@@ -33,6 +34,7 @@ public class TripPlanService {
         tripDetails.setCurrencyCode(geoDetails.currencyCode());
         tripPlan.setDetails(tripDetails);
         TripPlan savedTripPlan = tripPlanRepository.save(tripPlan);
+        externalDataService.fetchAllExternalData(savedTripPlan);
         return tripPlanMapper.toTripPlanResponseDto(savedTripPlan);
     }
 

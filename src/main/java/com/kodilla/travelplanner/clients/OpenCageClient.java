@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @Component
-public class OpenCageClient {
+public class OpenCageClient implements GeoDataClient{
 
     private final WebClient webClient;
     private final String apiKey;
@@ -25,6 +25,7 @@ public class OpenCageClient {
         this.baseUrlString = baseUrl;
     }
 
+    @Override
     public GeoDetailsDto fetchGeocodingData(String destinationName, String destinationCountry) {
         URI url = buildOpenCageUrl(destinationName,destinationCountry);
 
